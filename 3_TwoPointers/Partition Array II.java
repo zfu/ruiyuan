@@ -24,16 +24,17 @@ public class Solution {
      * @param low: An integer
      * @param high: An integer
      * @return: 
-     
+     */
     public void partition2(int[] nums, int low, int high) {
         // write your code here
-        int left = -1, right = nums.length;
-        int i = 0;
-        while (i < right) {
+        int left = 0, right = nums.length - 1;
+        int less = left - 1, more = right + 1;
+        int i = left;
+        while (i < more) {
             if (nums[i] < low) {
-                swap(nums, i++, ++left);
+                swap(nums, i++, ++less);
             } else if (nums[i] > high) {
-                swap(nums, i, --right);
+                swap(nums, i, --more);
             } else {
                 i++;
             }
@@ -45,7 +46,9 @@ public class Solution {
         nums[i] = nums[j];
         nums[j] = temp;
     }
-    */
+}
+
+public class Solution{
     public void partition2(int[] nums, int low, int high) {
         // Write your code here
         if (nums == null || nums.length <= 1) {

@@ -1,5 +1,7 @@
 /**
- * 894. Pancake Sorting Given an an unsorted array, sort the given array. You
+ * 894. Pancake Sorting 
+ * 
+ * Given an an unsorted array, sort the given array. You
  * are allowed to do only following operation on array.
  * 
  * flip(arr, i): Reverse array from 0 to i Unlike a traditional sorting
@@ -29,6 +31,23 @@ public class Solution {
      * @return: nothing
      */
     public void pancakeSort(int[] array) {
-        // Write your code here
+        if (array == null || array.length == 0) {
+            return;
+        }
+
+        // iterate from right to left,
+        // keep flipping to make sure the current largest number is at array[0], then, flip it to the last
+        int i = array.length; // track the first index of "largest" element
+        while (i > 0) {
+            for (int j = 0; j < i; j++) {
+                if (array[0] < array[j]) {
+                    // find a larger element, flip
+                    FlipTool.flip(array, j); // larger element will be put in array[0]
+                }
+            }
+            // flip the larger element to left of the current first index of large element
+            FlipTool.flip(array, i - 1);
+            i--;
+        }
     }
 }

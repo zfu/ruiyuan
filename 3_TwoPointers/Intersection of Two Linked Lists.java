@@ -1,5 +1,7 @@
 /**
- * 380. Intersection of Two Linked Lists Write a program to find the node at
+ * 380. Intersection of Two Linked Lists 
+ * 
+ * Write a program to find the node at
  * which the intersection of two singly linked lists begins.
  * 
  * Example The following two linked lists:
@@ -14,23 +16,17 @@
  * You may assume there are no cycles anywhere in the entire linked structure.
  */
 
- /**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) {
- *         val = x;
- *         next = null;      
- *     }
- * }
+/**
+ * Definition for singly-linked list. public class ListNode { int val; ListNode
+ * next; ListNode(int x) { val = x; next = null; } }
  */
-
 
 public class Solution {
     /*
      * @param headA: the first list
+     * 
      * @param headB: the second list
+     * 
      * @return: a ListNode
      */
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
@@ -38,13 +34,63 @@ public class Solution {
         if (headA == null || headB == null) {
             return null;
         }
-        
+
         ListNode p1 = headA, p2 = headB;
         while (p1 != p2) {
             p1 = p1 != null ? p1.next : headB;
             p2 = p2 != null ? p2.next : headA;
         }
-        
+
         return p1;
+    }
+}
+
+/**
+ * Definition for singly-linked list. public class ListNode { int val; ListNode
+ * next; ListNode(int x) { val = x; next = null; } }
+ */
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+
+        int lenA = getListLength(headA);
+        int lenB = getListLength(headB);
+
+        ListNode pA = headA;
+        ListNode pB = headB;
+
+        if (lenA > lenB) {
+            for (int i = 0; i < lenA - lenB; i++) {
+                pA = pA.next;
+            }
+        } else if (lenA < lenB) {
+            for (int i = 0; i < lenB - lenA; i++) {
+                pB = pB.next;
+            }
+        }
+
+        while (pA != null && pB != null) {
+            if (pA == pB) {
+                return pA;
+            }
+            pA = pA.next;
+            pB = pB.next;
+        }
+
+        return null;
+    }
+
+    private int getListLength(ListNode head) {
+        int len = 0;
+        ListNode p = head;
+
+        while (p != null) {
+            len++;
+            p = p.next;
+        }
+
+        return len;
     }
 }

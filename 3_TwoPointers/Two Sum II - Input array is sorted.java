@@ -20,19 +20,24 @@ public class Solution {
      */
     public int[] twoSum(int[] nums, int target) {
         // write your code here
+        int[] res = new int[2];
         if (nums == null || nums.length < 2) {
-            return new int[0];
+            return res;
         }
 
-        for (int l = 0, r = nums.length - 1; l < r; r--) {
-            while (l < r && nums[l] + nums[r] < target) {
-                l++;
+        int left = 0, right = nums.length - 1;
+        while (left < right) {
+            int sum = nums[left] + nums[right];
+            if (sum == target) {
+                res[0] = left + 1;
+                res[1] = right + 1;
+                return res;
+            } else if (sum < target) {
+                left++;
+            } else {
+                right--;
             }
-            if (l != r && nums[l] + nums[r] == target) {
-                return new int[]{l + 1, r + 1};
-            }
-
         }
-        return new int[0];
+        return res;
     }
 }

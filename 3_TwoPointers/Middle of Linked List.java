@@ -1,5 +1,7 @@
 /**
- * 228. Middle of Linked List Find the middle node of a linked list.
+ * 228. Middle of Linked List 
+ * 
+ * Find the middle node of a linked list.
  * 
  * Example Given 1->2->3, return the node with value 2.
  * 
