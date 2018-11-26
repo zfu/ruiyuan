@@ -1,29 +1,10 @@
-
-### [611. Knight Shortest Path](https://www.lintcode.com/problem/knight-shortest-path/description)
-
-**Description**
-
-Given a knight in a chessboard (a binary matrix with 0 as empty and 1 as barrier) with a source position, find the shortest path to a destination position, return the length of the route.
+/**
+ * 611. Knight Shortest Path
+Given a knight in a chessboard (a binary matrix with 0 as empty and 1 as barrier) with a source position, 
+find the shortest path to a destination position, return the length of the route.
 Return -1 if knight can not reached.
 
-source and destination must be empty.
-Knight can not enter the barrier.
-
-**Clarification**
-
-If the knight is at (x, y), he can get to the following positions in one step:
-```text
-(x + 1, y + 2)
-(x + 1, y - 2)
-(x - 1, y + 2)
-(x - 1, y - 2)
-(x + 2, y + 1)
-(x + 2, y - 1)
-(x - 2, y + 1)
-(x - 2, y - 1)
-```
-**Example**
-```text
+Example
 [[0,0,0],
  [0,0,0],
  [0,0,0]]
@@ -38,10 +19,23 @@ source = [2, 0] destination = [2, 2] return 6
  [0,0,1],
  [0,0,0]]
 source = [2, 0] destination = [2, 2] return -1
-```
+Clarification
+If the knight is at (x, y), he can get to the following positions in one step:
 
-```java
-//version 硅谷算法班
+(x + 1, y + 2)
+(x + 1, y - 2)
+(x - 1, y + 2)
+(x - 1, y - 2)
+(x + 2, y + 1)
+(x + 2, y - 1)
+(x - 2, y + 1)
+(x - 2, y - 1)
+Notice
+source and destination must be empty.
+Knight can not enter the barrier.
+ */
+
+ //version 硅谷算法班
 public class Solution {
     /**
      * @param grid: a chessboard included 0 (false) and 1 (true)
@@ -92,52 +86,9 @@ public class Solution {
         return -1;
     }
 }
-```
 
-The idea is to use [Breadth First Search (BFS)](http://www.techiedelight.com/breadth-first-search/) as it is a Shortest Path problem. Below is the complete algorithm.
 
-  
-1\. Create an empty queue and enqueue source cell having  
-   distance 0 from source (itself)
-
-2\. do till queue is not empty
-
-   a) Pop next unvisited node from queue
-
-   b) If the popped node is destination node, return its distance
-
-   c) else we mark current node as visited and for each of 8 possible  
-      movements for a knight, we enqueue each valid movement into the  
-      queue with +1 distance (min distance of given node from source  
-      = min distance of parent from source + 1)  
-
-A knight can move in 8 possible directions from a given cell as illustrated in below figure –
-
-   
-  ![knight-movements](:/25104678d386411784fca1b3cfe0de8a)
-
-We can find all the possible locations the Knight can move to from the given location by using the array that stores the relative position of Knight movement from any location. For example, if the current location is (x, y), we can move to (x + row\[k\], y + col\[k\]) for 0 <= k <=7 using below array.
-
-row\[\] = \[ 2, 2, -2, -2, 1, 1, -1, -1 \]  
-col\[\] = \[ -1, 1, 1, -1, 2, -2, 2, -2 \]  
-
-So, from position (x, y) Knight’s can move to:
-
-(x + 2, y – 1)  
-(x + 2, y + 1)  
-(x – 2, y + 1)  
-(x – 2, y – 1)  
-(x + 1, y + 2)  
-(x + 1, y – 2)  
-(x – 1, y + 2)  
-(x – 1, y – 2)  
-
-   
-Note that in BFS, all cells having shortest path as 1 are visited first, followed by their adjacent cells having shortest path as 1 + 1 = 2 and so on.. so if we reach any node in BFS, its shortest path = shortest path of parent + 1. So, the first occurrence of the destination cell gives us the result and we can stop our search there. **It is not possible that the shortest path exists from some other cell for which we haven’t reached the given node yet. If any such path was possible, we would have already explored it.
-
-```java
-
-import java.util.*;
+//import java.util.*;
 
 // queue node used in BFS
 class Node
@@ -263,60 +214,3 @@ class ChessKnight
         System.out.println("Minimum number of steps required is " + BFS(src, dest, N));
     }
 }
-
-```
-
-  ```java
-
-package fbOnsite;
-
-import java.util.*;
-
-public class KnightShortestPath {
-    public static int shortestPath(int[][] board, int[] src, int[] dst) {
-        int[][] directions = new int[][]{{1,2},{1,-2},{-1,2},{-1,-2},{2,1},{2,-1},{-2,1},{-2,-1}};
-        int m = board.length;
-        int n = board[0].length;
-        int res = 0;
-        
-        Queue<Integer> queue = new LinkedList<Integer>();
-        HashSet<Integer> visited = new HashSet<Integer>();
-        queue.offer(src[0]*n + src[1]);
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            for (int i=0; i<size; i++) {
-                int cur = queue.poll();
-                visited.add(cur);
-                int x = cur / n;
-                int y = cur % n;
-                if (x == dst[0] && y == dst[1]) return res;
-                
-                for (int[] dir : directions) {
-                    int nx = x + dir[0];
-                    int ny = y + dir[1];
-                    if (nx<0 || nx>=m || ny<0 || ny>=n || visited.contains(nx*n+ny) || board[nx][ny]!=0)
-                        continue;
-                    queue.offer(nx*n + ny);
-                }
-            }
-            res++;
-        }
-        return res;
-    }
-    
-    
-
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        // TODO Auto-generated method stub
-        int[][] board = new int[][] {{0,1,0},{0,0,0},{0,0,0}};
-        int[] src = new int[]{2,0};
-        int[] dst = new int[]{2,2};
-        int res = shortestPath(board, src, dst);
-        System.out.println(res);
-    }
-
-}
-```

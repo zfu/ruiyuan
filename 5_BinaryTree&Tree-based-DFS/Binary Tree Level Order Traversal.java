@@ -1,114 +1,43 @@
-### [102\. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/description/)
+/**
+ * Description
+Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
 
-Difficulty: **Medium**
+Have you met this question in a real interview?  
+Example
+Given binary tree {3,9,20,#,#,15,7},
 
-
-
-Given a binary tree, return the _level order_ traversal of its nodes' values. (ie, from left to right, level by level).
-
-For example:  
-Given binary tree `[3,9,20,null,null,15,7]`,  
-
-```
     3
    / \
   9  20
     /  \
    15   7
-```
+ 
 
-return its level order traversal as:  
+return its level order traversal as:
 
-```
 [
   [3],
   [9,20],
   [15,7]
 ]
-```
+Challenge
+Challenge 1: Using only 1 queue to implement it.
 
+Challenge 2: Use DFS algorithm to do it.
+ */
 
-
-#### Solution
-
-Language: **Java**
-
-```java
-/**
- * Definition for a binary tree node.
+ /**
+ * Definition of TreeNode:
  * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
+ *     public int val;
+ *     public TreeNode left, right;
+ *     public TreeNode(int val) {
+ *         this.val = val;
+ *         this.left = this.right = null;
+ *     }
  * }
  */
-class Solution {
-    Solution 1: BFS O(n); O(w)
-    /**
-     * BFS O(n);O(w)
-     * Since each time we need to traverse each level of the tree, we can use BFS to solve this problem.
-     * 1.Use Queue to store nodes of each level.
-     * 2.Traverse one level at each iteration instead of regular BFS, since result needs to be stored in List-List.
-     * 3.By getting the size of the queue, we know how many nodes in current level.
-     * 4.If left or right child of current node is not null, add it to the queue.
-     * 5.Add value of nodes of each level into the result.
-     */    
-    public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> res = new ArrayList<>();
-        if (root == null) {
-            return res;
-        }
-        // 1.add start node into queue
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        // 2.while queue is not empty
-        while (!queue.isEmpty()) {
-            // 3.level x -> x + 1
-            List<Integer> curLevel = new ArrayList<>(); //can be replaced by deep copy, but will lead to low efficiency
-            int size = queue.size();
-            for (int i = 0; i < size; i++) { //level x
-                TreeNode node = queue.poll();
-                curLevel.add(node.val);
-                if (node.left != null) {
-                    queue.add(node.left); //level x + 1
-                }
-                if (node.right != null) {
-                    queue.add(node.right); //level x + 1
-                }
-            }
-            res.add(curLevel); // no deep copy
-        }
-        return res;
-    }
-}
-```
-
-```java
-//Solution 2: DFS O(n); O(h)
-    public List<List<Integer>> levelOrderB(TreeNode root) {
-        List<List<Integer>> res = new ArrayList<>();
-        dfs(res, root, 0);
-        return res;
-    }
-
-    private void dfs(List<List<Integer>> res, TreeNode root, int level) {
-        if (root == null) {
-            return;
-        }
-
-        if (res.size() <= level) {
-            res.add(new ArrayList<>());
-        }
-        res.get(level).add(root.val);
-
-        dfs(res, root.left, level + 1);
-        dfs(res, root.right, level + 1);
-    }
-```
-
-```java
-
+ 
 //	version 1: BFS Use One Queue (Best way)	与BFS模板的程序代码相同
 //	参见BFS Template.java 里面有对于BFS算法的详细解析与注意点说明
 public class Solution {
@@ -116,9 +45,9 @@ public class Solution {
      * @param root: The root of binary tree.
      * @return: Level order a list of lists of integer
      */
-    public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
+    public List<ArrayList<Integer>> levelOrder(TreeNode root) {
         // write your code here
-        ArrayList<ArrayList<Integer>> rst = new ArrayList();
+        List<ArrayList<Integer>> rst = new ArrayList();
                 
         if (root == null) {
             return rst;
@@ -129,7 +58,7 @@ public class Solution {
         
         while (!queue.isEmpty()) {
             int size = queue.size();
-            ArrayList<Integer> level = new ArrayList<Integer>();
+            List<Integer> level = new ArrayList<Integer>();
             for (int i = 0; i < size; i++) {
                 TreeNode node = queue.poll();
                 level.add(node.val);
@@ -153,7 +82,7 @@ public class Solution {
      * @param root: The root of binary tree.
      * @return: Level order a list of lists of integer
      */
-    public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
+    public List<ArrayList<Integer>> levelOrder(TreeNode root) {
         ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
         
         if (root == null) {
@@ -162,7 +91,7 @@ public class Solution {
         
         int maxLevel = 0;
         while (true) {
-            ArrayList<Integer> level = new ArrayList<Integer>();
+            List<Integer> level = new ArrayList<Integer>();
             dfs(root, level, 0, maxLevel);
             if (level.size() == 0) {
                 break;
@@ -175,10 +104,7 @@ public class Solution {
         return results;
     }
     
-    private void dfs(TreeNode root,
-                     ArrayList<Integer> level,
-                     int curtLevel,
-                     int maxLevel) {
+    private void dfs(TreeNode root, List<Integer> level, int curtLevel, int maxLevel) {
         if (root == null || curtLevel > maxLevel) {
             return;
         }
@@ -278,12 +204,10 @@ public class Solution {
         return result;
     }
 }
-```
 
-
-#### Follow Up:
-1.打印出每层最大的两个数字，如果不到2个，就打印null.
-```java
+//Follow Up:
+//1.打印出每层最大的两个数字，如果不到2个，就打印null.
+public class Solution {
     public List<List<Integer>> levelOrderC(TreeNode root) { //BFS
         List<List<Integer>> res = new ArrayList<>();
         if (root == null) {
@@ -322,4 +246,4 @@ public class Solution {
         }
         return res;
     }
-```
+}

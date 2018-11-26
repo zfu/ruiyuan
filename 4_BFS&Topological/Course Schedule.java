@@ -1,60 +1,20 @@
-### [207\. Course Schedule](https://leetcode.com/problems/course-schedule/description/)
-
-Difficulty: **Medium**
-
-
-
-There are a total of _n_ courses you have to take, labeled from `0` to `n-1`.
-
-Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: `[0,1]`
-
-Given the total number of courses and a list of prerequisite **pairs**, is it possible for you to finish all courses?
-
-**Example 1:**
-
-
-**Input:** 2, [[1,0]] 
-**Output:** true
-**Explanation:** There are a total of 2 courses to take. 
-             To take course 1 you should have finished course 0\. So it is possible.```
-
-**Example 2:**
-
-**Input:** 2, [[1,0],[0,1]]
-**Output:** false
-**Explanation:** There are a total of 2 courses to take. 
-             To take course 1 you should have finished course 0, and to take course 0 you should
-             also have finished course 1\. So it is impossible.
-
-
-**Note:**
-
-1.  The input prerequisites is a graph represented by **a list of edges**, not adjacency matrices. Read more about .
-2.  You may assume that there are no duplicate edges in the input prerequisites.
-
-
-
-#### Solution
-
-**BFS Solution: (Topological sorting)**
-
-The basic idea is to use Topological algorithm: put NODE with 0 indgree into the queue, then make indegree of NODE's successor dereasing 1. Keep the above steps with BFS.
-Finally, if each node' indgree equals 0, then it is validated DAG (Directed Acyclic Graph), which means the course schedule can be finished.
-
-**DFS Solution:**
-
-The basic idea is using DFS to check if the current node was already included in the traveling path. In this case, we need to convert graph presentation from edge list to adjacency list first, and then check if there's cycle existing in any subset. Because tree is a connected graph, we can start from any node.
-The graph is possibly not connected, so need to check every node.
-To do memorization and pruning, a HashMap is used to save the previous results for the specific node
-
-* 1.build graph
-* 2.build indegree map
-* 3.put 0 indegree into queue
-* 4.reduce indegree and put new 0 indegree int into queue
-
-
-```java
 /**
+ * 615. Course Schedule
+There are a total of n courses you have to take, labeled from 0 to n - 1.
+
+Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]
+
+Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
+
+Example
+Given n = 2, prerequisites = [[1,0]]
+Return true
+
+Given n = 2, prerequisites = [[1,0],[0,1]]
+Return false
+ */
+
+ /**
  * Approach 1: Topological Sort (Based on BFS)
  * 与 Directed Graph Loop 基本相同。
  * 实质为：判断该有向图中是否存在环。
@@ -161,4 +121,3 @@ class Solution {
         return true;
     }
 }
-```

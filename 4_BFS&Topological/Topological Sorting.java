@@ -1,70 +1,32 @@
-### 127. Topological Sorting
+/**
+ * 127. Topological Sorting
 Given an directed graph, a topological order of the graph nodes is defined as follow:
 
 For each directed edge A -> B in graph, A must before B in the order list.
 The first node in the order can be any node in the graph with no nodes direct to it.
 Find any topological order for the given graph.
-
-**Example**
-
-For graph as follow:
-
-
-![Topological sorting](../pic/topologicalsorting.jpg)
-
-The topological order can be:
-
->[0, 1, 2, 3, 4, 5]
-
->[0, 2, 3, 1, 5, 4]
-
-
-**Challenge**
-
-Can you do it in both BFS and DFS?
-
-**Clarification**
-
-Learn more about representation of graphs
-
-**Notice**
-
-You can assume that there is at least one topological order in the graph.
-
-```java
-/*
-Description
-Given an directed graph, a topological order of the graph nodes is defined as follow:
-
-For each directed edge A -> B in graph, A must before B in the order list.
-The first node in the order can be any node in the graph with no nodes direct to it.
-Find any topological order for the given graph.
-
-Notice
-You can assume that there is at least one topological order in the graph.
-
-Clarification
-Learn more about representation of graphs
 
 Example
 For graph as follow:
 
-picture：
-https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThE9AgZZszyhwe0o9qpp3VyizdIj9kWwMY50HiQEysXvkSLsoZ
+picture
 
 The topological order can be:
+
 [0, 1, 2, 3, 4, 5]
 [0, 2, 3, 1, 5, 4]
 ...
-
 Challenge
 Can you do it in both BFS and DFS?
 
-Tags
-LintCode Copyright Geeks for Geeks Depth First Search Topological Sort Breadth First Search
+Clarification
+Learn more about representation of graphs
+
+Notice
+You can assume that there is at least one topological order in the graph.
  */
 
-/**
+ /**
  * 拓扑排序 被用于对 有向无环图 进行排序。
  * 它常被用于 Build System 等场合，比如 Java 中有很多个包，
  * 每个包都它各自的依赖，比如 C 依赖于 A 和 B，那么在 A,B 被建立之前，C 是无法被创建的。
@@ -129,7 +91,7 @@ public class Solution {
             }
         }
 
-        ArrayList<DirectedGraphNode> rst = new ArrayList<>();
+        List<DirectedGraphNode> rst = new ArrayList<>();
         Queue<DirectedGraphNode> queue = new LinkedList<>();
         for (DirectedGraphNode node : graph) {
             // 选出 入度为0 的节点，将其 add 到 queue 和 rst 中
@@ -214,4 +176,3 @@ public class Solution {
         stack.push(node);
     }
 }
-```
