@@ -1,55 +1,22 @@
-### [110\. Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/description/)
-
-Difficulty: **Easy**
-
-
-
+/**
+ * Description
 Given a binary tree, determine if it is height-balanced.
 
-For this problem, a height-balanced binary tree is defined as:
+For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
 
-> a binary tree in which the depth of the two subtrees of _every_ node never differ by more than 1.
+Have you met this question in a real interview?  
+Example
+Given binary tree A = {3,9,20,#,#,15,7}, B = {3,#,20,15,7}
 
-**Example 1:**
-
-Given the following tree `[3,9,20,null,null,15,7]`:
-
-```text
-    3
-   / \
-  9  20
-    /  \
-   15   7```
-
-Return true.  
-
-**Example 2:**
-
-Given the following tree `[1,2,2,3,3,null,null,4,4]`:
-
-
-       1
-      / \
-     2   2
-    / \
-   3   3
-  / \
- 4   4
-```
-
-Return false.
-
-
-
-#### Solution
-
-
-```java
-Tags
-Divide and Conquer Recursion
+A)  3            B)    3 
+   / \                  \
+  9  20                 20
+    /  \                / \
+   15   7              15  7
+The binary tree A is a height-balanced binary tree, but B is not.
  */
 
-/**
+ /**
  * Approach 1: Divide and Conquer
  * 需要求解一棵树是否为 平衡树，即要求其所有 子树 都是平衡树。
  * 因此我们可以通过 分治 的方法来解决。
@@ -134,4 +101,3 @@ public class Solution {
         return Math.max(leftDepth, rightDepth) + 1;
     }
 }
-```

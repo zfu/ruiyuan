@@ -22,7 +22,7 @@ The target node is a node in the tree.
  * Approach: Build Tree Graph + BFS
  * 想要求到树某一个节点 distance 为 K 的所有点。
  * 很容易想到就是使用 BFS。根据要求，我们在遍历的时候应该
- * 将整棵树看作是一个 无向图 来进行比遍历。
+ * 将整棵树看作是一个 无向图 来进行遍历。
  * 因此首先我们需要构建出这张图才行。
  *
  * 做法比较简单，使用 Map<Integer, List<Integer>> 即可。

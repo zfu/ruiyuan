@@ -12,7 +12,7 @@ Return [1000, 100, 10].
  * Min Heap
  * Poll出去最小的，留下的都是最大的。
  */
-public class Solution {
+class Solution {
     /**
      * @param nums: an integer array
      * @param k: An integer
@@ -47,7 +47,7 @@ public class Solution {
  * QuickSelect
  */
 
-import java.util.Random;
+//import java.util.Random;
 
 class Solution {
     /*
