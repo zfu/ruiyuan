@@ -15,37 +15,31 @@ Examples:
 public class Solution {
     public int[] interleave(int[] array) {
       // Write your solution here
-      // The following few lines are similar to partition 
-          // process of QuickSort.  The idea is to consider 0 
-          // as pivot and divide the array around it. 
-          int i = -1, temp = 0; 
-          for (int j = 0; j < array.length; j++) 
-          { 
-              if (array[j] < 0) 
-              { 
-                  i++; 
-                  temp = array[i]; 
-                  array[i] = array[j]; 
-                  array[j] = temp; 
-              } 
-          } 
-    
-          // Now all positive numbers are at end and negative numbers at 
-          // the beginning of array. Initialize indexes for starting point 
-          // of positive and negative numbers to be swapped 
-          int pos = i+1, neg = 0; 
-    
-          // Increment the negative index by 2 and positive index by 1, i.e., 
-          // swap every alternate negative number with next positive number 
-          while (pos < array.length && neg < pos && array[neg] < 0) 
-          { 
-              temp = array[neg]; 
-              array[neg] = array[pos]; 
-              array[pos] = temp; 
-              pos++; 
-              neg += 2; 
-          } 
+      if (array == null || array.length <= 1) {
+        return array;
+      }
+      
+      int less = -1;
+      for (int i = 0; i < array.length; i++) {
+        if (array[i] < 0) {
+          swap(array, ++less, i);
+        }
+      }
+      
+      int pos = less + 1, neg = 0;
+      while (pos < array.length && neg < pos && array[neg] < 0) {
+        swap(array, pos, neg);
+        pos++;
+        neg += 2;
+      }
       return array;
     }
+    
+    private void swap(int[] array, int i, int j) {
+      int temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
   }
+  
   
